@@ -12,7 +12,7 @@ export const ProjectsList = ({projects, onProjectDelete} : Props) => {
     return (
         <div>
             {projects.map(project => (
-                <ProjectListElement key={project.id} project={project} onProjectDelete={onProjectDelete}/>
+                <ProjectListElement key={project.id} project={project} onProjectsChange={onProjectDelete}/>
             ))}
         </div>
     )
