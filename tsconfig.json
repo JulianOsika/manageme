@@ -25,5 +25,5 @@
     "allowJs": true,
     "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["src", "src/stores/project-store.ts"]
 }

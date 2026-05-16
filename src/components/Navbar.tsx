@@ -9,7 +9,7 @@ interface Props{
 export const Navbar = ({user}: Props) => {
 
     return (
-        <nav className="navbar navbar-light bg-light px-4 mb-4 shadow-sm">
+        <nav className="navbar navbar-light bg-light px-4 shadow-sm sticky-top">
             <div className="container-fluid d-flex justify-content-between align-items-center">
                 
                 <div>
@@ -17,10 +17,6 @@ export const Navbar = ({user}: Props) => {
                         <img src={appLogo} alt="ManageMe Logo" height="50" />
                     </NavLink>
                     
-                    <NavLink 
-                        to="/projects"
-                        className={({ isActive }) => isActive ? "text-decoration-none fw-bold text-primary" : "text-decoration-none text-dark"}
-                    >Projekty</NavLink>
                 </div>
 
                 <div className="d-flex align-items-center gap-3">

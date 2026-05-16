@@ -1,91 +1,53 @@
-import { useState } from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import type { Project } from "../models/Project";
-import { deleteProject } from "../project-store";
-import { updateProject } from "../project-store";
+import { useState } from "react";
+import { ProjectMenu } from "./ProjectMenu";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-    project: Project
-    onProjectsChange: () => void;
+    project: Project,
+    onProjectsUpdate: () => void
 }
 
-export const ProjectListElement = ({project, onProjectsChange} : Props) => {
+export const ProjectListElement = ({project, onProjectsUpdate}: Props) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [editName, setEditName] = useState<string>(project.name);
-    const [editDescription, setEditDescription] = useState<string>(project.description);
+    return (
+        <div
+            className="p-3 border-bottom d-flex justify-content-between align-items-center"
+            onClick={() => {
+                navigate(`/project/${project.id}`);
+            }}
+        >
+            
+            <span className="text-truncate fw-medium pe-2">
+                {project.name}
+            </span>
+            
+            <div className="position-relative">
+                <button 
+                    className="btn border-0 p-1 text-secondary d-flex justify-content-center align-items-center"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsMenuOpen(!isMenuOpen);
+                    }}
+                >
+                    <BsThreeDotsVertical size={18} />
+                </button>
 
-    const handleDeleteProject = () => {
-        deleteProject(project.id);
-        onProjectsChange();
-    }
-
-    const handleEditProject = () => {
-        const editProject: Project = {
-            ...project,
-            name: editName,
-            description: editDescription
-        }
-        updateProject(editProject);
-        setIsEditing(false);
-        onProjectsChange();
-    }
-
-    const cancelEditing = () => {
-        setIsEditing(false);
-    }
-
-    const turnOnEditMode = () => {
-        setIsEditing(true);
-    }
-    
-    if(!isEditing){
-        return (
-            <div className="card mb-3 p-3">
-                <div className="row align-items-center">
-                        <div className="col-8 col-md-9">
-                            <h5>{project.name}</h5>
-                            <p>{project.description}</p>
-                        </div>
-                        <div className="col-4 col-md-3 d-flex gap-2 justify-content-end">
-                            <button className="btn btn-success btn-sm" onClick={turnOnEditMode}>
-                                Edytuj
-                            </button>
-                            <button className="btn btn-outline-danger btn-sm" onClick={handleDeleteProject}>
-                                Usuń
-                            </button>
-                        </div>
-                </div>
+                {isMenuOpen && (
+                    <>
+                        <div 
+                            className="position-fixed top-0 start-0 w-100 h-100" 
+                            style={{ zIndex: 2 }}
+                            onClick={ (e) => {e.stopPropagation(); setIsMenuOpen(false); }}
+                        />
+                        <ProjectMenu projectId={project.id} onProjectsUpdate={onProjectsUpdate} setIsMenuOpen={setIsMenuOpen}/> 
+                    </>
+                )}
             </div>
-        )
-    }
-    else{
-        return (
-            <div className="card mb-3 p-3">
-                <div className="row align-items-center">
-                        <div className="col-8 col-md-9">
-                            <input 
-                            type="text" 
-                            className="form-control" 
-                            value={editName}
-                            onChange={(e) => setEditName(e.target.value)} 
-                            />
-                            <input 
-                            type="text" 
-                            className="form-control" 
-                            value={editDescription}
-                            onChange={(e) => setEditDescription(e.target.value)} 
-                            />
-                        </div>
-                        <div className="col-4 col-md-3 d-flex gap-2 justify-content-end">
-                            <button className="btn btn-success btn-sm" onClick={handleEditProject}>
-                                Zapisz
-                            </button>
-                            <button className="btn btn-outline-danger btn-sm" onClick={cancelEditing}>
-                                Anuluj
-                            </button>
-                        </div>
-                </div>
-            </div>
-        )
-    }
+            
+        </div>
+    )
 }
