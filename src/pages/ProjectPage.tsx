@@ -102,7 +102,7 @@ export const ProjectPage = ({onProjectsUpdate} : Props) => {
                 </div>
             )}
 
-            <StoryList projectId={project.id}/>
+            <StoryList key={projectId} projectId={project.id}/>
         </div>
     )
 }

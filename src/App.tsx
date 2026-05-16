@@ -27,10 +27,10 @@ export const App = () => {
 
       <div className="container-fluid">
         <div className='row'>
-          <div className='col-3 p-0'>
+          <div className='col-2 p-0'>
             <SideBar projects={projects} onProjectsUpdate={refreshProjects}/>
           </div>
-          <div className='col-9 p-4'>
+          <div className='col-10 p-4'>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/project/:projectId" element={<ProjectPage onProjectsUpdate={refreshProjects}/>} />
