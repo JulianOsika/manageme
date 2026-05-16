@@ -9,7 +9,7 @@ interface Props{
 
 export const SideBar = ({projects, onProjectsUpdate} : Props) => {
     return(
-        <div className="bg-light border-end" style={{ minHeight: '100vh' }}>
+        <div className="border-end bg-secondary bg-opacity-10" style={{ minHeight: '100vh' }}>
             <SideBarMenu onProjectsUpdate={onProjectsUpdate}/>
             <SideBarProjectsList projects={projects} onProjectsUpdate={onProjectsUpdate}/>
         </div>

@@ -2,7 +2,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import type { Project } from "../models/Project";
 import { useState } from "react";
 import { ProjectMenu } from "./ProjectMenu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getActiveProject } from "../stores/project-store";
 
 interface Props {
     project: Project,
@@ -11,13 +12,16 @@ interface Props {
 
 export const ProjectListElement = ({project, onProjectsUpdate}: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
+    const isActive = location.pathname.includes(project.id);
     const navigate = useNavigate();
 
     return (
         <div
-            className="p-3 border-bottom d-flex justify-content-between align-items-center"
+            className={`p-3 border-bottom d-flex justify-content-between align-items-center ${isActive && "bg-primary bg-opacity-10"}`}
             onClick={() => {
                 navigate(`/project/${project.id}`);
+                onProjectsUpdate();
             }}
         >
             

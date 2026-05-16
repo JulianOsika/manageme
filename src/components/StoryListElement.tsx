@@ -68,20 +68,20 @@ export const StoryListElement = ({story, refreshStories}: Props) => {
 
     const prioritySelectClass = {
         low: 'bg-success text-white',
-        medium: 'bg-warning text-dark',
+        medium: 'bg-warning text-light',
         high: 'bg-danger text-white'
     }[newPriority];
 
     const stateClass = {
-        todo: 'bg-success',
+        todo: 'bg-secondary',
         doing: 'bg-warning text-dark',
-        done: 'bg-danger'
+        done: 'bg-success'
     }[story.state];
 
     const stateSelectClass = {
-        todo: 'bg-outline-success text-white',
+        todo: 'bg-secondary text-white',
         doing: 'bg-warning text-dark',
-        done: 'bg-danger text-white'
+        done: 'bg-success text-light'
     }[newState];
 
     return (
